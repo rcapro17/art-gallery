@@ -24,7 +24,8 @@ class Category(models.Model):
 class Artist(models.Model):
     name = models.CharField(max_length=200)
     biography = models.TextField(blank=True)
-    
+    foto = models.ImageField(upload_to='artists/', blank=True, null=True)  # New field
+
     def __str__(self):
         return self.name
 
