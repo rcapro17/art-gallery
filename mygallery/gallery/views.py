@@ -30,7 +30,7 @@ class ArtistViewSet(viewsets.ModelViewSet):
 class ItemViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
-    permission_classes = [AllowAny]  # Public access allowed to view items
+    permission_classes = [AllowAny] # Public access allowed to view items
 
 class PurchaseViewSet(viewsets.ModelViewSet):
     queryset = Purchase.objects.all()
