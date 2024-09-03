@@ -1,0 +1,17 @@
+/* src/components/Spotlight.css */
+.spotlight-backdrop {
+  margin: 0;
+  padding: 0;
+  position: fixed; /* Ensure the component stays fixed */
+  top: 0; /* Align to the top */
+  left: 0; /* Align to the left */
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+  background-image: url('/public/images/spotlights-bg.png'); /* Path from public directory */
+  background-size: contain; /* Ensure the image is contained within the viewport */
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 17vh; /* Adjust height as needed */
+  width: 100vw; /* Full viewport width */
+  z-index: 1; /* Ensure it's behind other content */
+}

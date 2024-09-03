@@ -1,0 +1,28 @@
+/* src/components/BookingForm.css */
+.booking-form-container {
+  padding: 24px;
+  max-width: 600px;
+  margin: 40px auto;
+  background-color: rgb(17, 18, 18);
+}
+
+.booking-form-title {
+  margin-bottom: 16px;
+  text-align: center;
+  font-weight: 'bold';
+  padding-bottom: 20px;
+}
+
+.booking-form-field {
+  margin-bottom: 16px;
+}
+
+.booking-form-button {
+  display: block;
+  margin: 0 auto;
+}
+
+.booking-form-message {
+  margin-top: 16px;
+  text-align: center;
+}

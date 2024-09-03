@@ -1,0 +1,53 @@
+/* src/components/ItemList.css */
+.item-list-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 250px;
+}
+
+body {
+  background-color: rgb(182, 184, 186);
+}
+
+.card-container {
+  margin-top: 15px; /* Adjust the value as needed to add more space */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.grid-container {
+  max-width: 1200px;
+  width: 100%;
+}
+
+.grid-item {
+  display: flex;
+  padding: 10px;
+  justify-content: center;
+}
+
+.card {
+  width: 100%;
+  max-width: 330px;
+  margin: 0 auto; /* Center the card horizontally */
+  max-height: 600px;
+}
+
+.card-media {
+  cursor: pointer;
+}
+
+.card-content {
+  text-align: center;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: center;
+}
+
+.dialog-content {
+  text-align: center;
+}

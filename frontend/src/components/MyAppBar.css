@@ -1,0 +1,21 @@
+.app-bar {
+  background-color: #383a3d;
+  margin: 0; /* Removes margin on all sides */
+  padding: 0 100px; /* Optional: Adjusts the horizontal padding */
+  position: static;
+  min-height: 120px; /* Adjust height as needed */
+}
+
+.my-app-bar {
+  margin-bottom: 80px; /* Adjust this value to match the space needed */
+  height: auto;
+}
+
+.typography-title {
+  flex-grow: 5;
+  font-family: 'Papyrus';
+}
+
+.user-name {
+  margin-left: 16px;
+}
