@@ -1,2 +1,17 @@
+# Virtual environment
+venv/
+*.venv/
+
+# Database files
 db.sqlite3
-/venv
+
+# IDE settings
+.vscode/
+.idea/
+
+# Python bytecode
+__pycache__/
+*.pyc
+
+# Logs
+*.log

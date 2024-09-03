@@ -1,13 +1,12 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from .models import UserClient, Category, Artist, Item, Purchase
-from .serializers import UserClientSerializer, CategorySerializer, ArtistSerializer, ItemSerializer, PurchaseSerializer
+from .models import UserClient, Category, Artist, Item, Purchase, Booking
+from .serializers import UserClientSerializer, CategorySerializer, ArtistSerializer, ItemSerializer, PurchaseSerializer, BookingSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth.models import User
 from rest_framework import serializers
-
 
 
 
@@ -56,6 +55,16 @@ class RegisterView(APIView):
             serializer.save()
             return Response({'status': 'User created'}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class BookingCreateView(generics.CreateAPIView):
+    queryset = Booking.objects.all()
+    serializer_class = BookingSerializer
+    permission_classes = [AllowAny]  # No authentication required
+
+class BookingViewSet(viewsets.ModelViewSet):
+    queryset = Booking.objects.all()
+    serializer_class = BookingSerializer
+    permission_classes = [AllowAny] 
 
 
 

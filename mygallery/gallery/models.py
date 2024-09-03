@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-from django.db import models
+
 
 class UserClient(models.Model):
     first_name = models.CharField(max_length=30)
@@ -14,6 +14,16 @@ class UserClient(models.Model):
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
 
+class Booking(models.Model):
+    name = models.CharField(null=False, max_length=255, default='Default Name')
+    email = models.EmailField(null=False, default='default@example.com')
+    booking_date = models.DateField(null=False)
+    booking_time = models.TimeField(null=False)
+    message = models.TextField(null=True)
+
+    def __str__(self):
+        return f"Booking by {self.name} on {self.booking_date} at {self.booking_time} - Message: {self.message}"
+
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
@@ -24,7 +34,7 @@ class Category(models.Model):
 class Artist(models.Model):
     name = models.CharField(max_length=200)
     biography = models.TextField(blank=True)
-    foto = models.ImageField(upload_to='artists/', blank=True, null=True)  # New field
+    foto = models.ImageField(upload_to='artists/', blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -42,11 +52,11 @@ class Item(models.Model):
     def __str__(self):
         return self.title
 
+
 class Purchase(models.Model):
     item = models.ForeignKey(Item, related_name='purchases', on_delete=models.CASCADE)
-    user_client = models.ForeignKey(User, related_name='purchases', on_delete=models.CASCADE)
+    user_client = models.ForeignKey(UserClient, related_name='purchases', on_delete=models.CASCADE)
     purchase_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Purchase of {self.item.title} by {self.user_client.username}"
-
+        return f"Purchase of {self.item.title} by {self.user_client}"
