@@ -1,58 +1,8 @@
 import React, { useContext } from 'react';
-import styled from 'styled-components';
 import Button from '@mui/material/Button';
 import { CartContext } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
-
-const DrawerWrapper = styled.div`
-  width: 400px;
-  padding: 20px;
-  overflow-y: auto;
-  background-color: #f5f5f5; /* Light background for better contrast */
-  height: 100%; /* Full height of the drawer */
-`;
-
-const CartItem = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-  padding: 10px;
-  background-color: #ffffff; /* White background for each item */
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-`;
-
-const ItemImage = styled.img`
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-right: 20px;
-`;
-
-const ItemDetails = styled.div`
-  flex: 1;
-`;
-
-const ItemTitle = styled.h3`
-  margin: 0;
-  font-size: 1.1rem;
-`;
-
-const ItemPrice = styled.p`
-  margin: 5px 0;
-  color: #555;
-`;
-
-const QuantityControls = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const CartFooter = styled.div`
-  margin-top: 20px;
-  text-align: center;
-`;
+import './Cart.css'; // Import the CSS file
 
 function Cart({ onPurchase, userName }) {
   const { cartItems, addToCart, removeFromCart, totalAmount } =
@@ -64,18 +14,18 @@ function Cart({ onPurchase, userName }) {
   };
 
   return (
-    <DrawerWrapper>
+    <div className="drawer-wrapper">
       <h2>{userName}'s Cart</h2>
       {cartItems.length === 0 ? (
         <p>Your cart is empty</p>
       ) : (
         cartItems.map((item) => (
-          <CartItem key={item.id}>
-            <ItemImage src={item.image} alt={item.title} />
-            <ItemDetails>
-              <ItemTitle>{item.title}</ItemTitle>
-              <ItemPrice>Price: ${item.price}</ItemPrice>
-              <QuantityControls>
+          <div key={item.id} className="cart-item">
+            <img src={item.image} alt={item.title} className="item-image" />
+            <div className="item-details">
+              <h3 className="item-title">{item.title}</h3>
+              <p className="item-price">Price: ${item.price}</p>
+              <div className="quantity-controls">
                 <Button
                   size="small"
                   disableElevation
@@ -95,12 +45,12 @@ function Cart({ onPurchase, userName }) {
                 >
                   +
                 </Button>
-              </QuantityControls>
-            </ItemDetails>
-          </CartItem>
+              </div>
+            </div>
+          </div>
         ))
       )}
-      <CartFooter>
+      <div className="cart-footer">
         <h3>Total: ${totalAmount ? totalAmount.toFixed(2) : '0.00'}</h3>
         <Button
           color="success"
@@ -110,12 +60,11 @@ function Cart({ onPurchase, userName }) {
         >
           Go to checkout
         </Button>
-
         <Button variant="contained" onClick={handleAddMoreItems}>
           Add More Items
         </Button>
-      </CartFooter>
-    </DrawerWrapper>
+      </div>
+    </div>
   );
 }
 
