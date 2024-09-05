@@ -11,7 +11,7 @@
   background-size: contain; /* Ensure the image is contained within the viewport */
   background-position: center;
   background-repeat: no-repeat;
-  height: 17vh; /* Adjust height as needed */
+  height: 33vh; /* Adjust height as needed */
   width: 100vw; /* Full viewport width */
   z-index: 1; /* Ensure it's behind other content */
 }

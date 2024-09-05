@@ -17,9 +17,12 @@ class ArtistSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ItemSerializer(serializers.ModelSerializer):
+    artist = ArtistSerializer(read_only=True)  # Use the ArtistSerializer here
+
     class Meta:
         model = Item
         fields = '__all__'
+
 
 class PurchaseSerializer(serializers.ModelSerializer):
     class Meta:

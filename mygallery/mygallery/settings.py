@@ -46,6 +46,14 @@ INSTALLED_APPS = [
     'gallery'
 ]
 
+JAZZMIN_SETTINGS = {
+    "site_title": "Galeria de Art Admin",
+    "site_header": "Galeria de Art Admin",
+    "site_brand": "Galeria de Art Admin",
+    "welcome_sign": "Bem-vindo à Galeria de Arte Admin Page",
+    # Adicione outras configurações conforme necessário
+}
+
 
 
 MIDDLEWARE = [
@@ -87,10 +95,17 @@ WSGI_APPLICATION = 'mygallery.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'testpass',
+        'HOST': 'localhost',  # Set to 'localhost' or your DB server
+        'PORT': '5433',        # Default PostgreSQL port
     }
 }
+
+
+
 
 
 # Password validation

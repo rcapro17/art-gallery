@@ -10,17 +10,21 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import Drawer from '@mui/material/Drawer';
 import axios from 'axios';
 import Button from '@mui/joy/Button';
 import { CartContext } from '../context/CartContext';
 import './ItemList.css'; // Import the CSS file
 import { Spotlight } from './Spotlight';
+import Artists from './Artists';
 
 function ItemList() {
   const [filteredItems, setFilteredItems] = useState([]);
   const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedArtist, setSelectedArtist] = useState(null);
   const { addToCart } = useContext(CartContext);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {
     axios
@@ -35,11 +39,27 @@ function ItemList() {
   const handleClickOpen = (item) => {
     setSelectedItem(item);
     setOpen(true);
+
+    if (item.artist && item.artist.id) {
+      setSelectedArtist(item.artist);
+    } else {
+      console.error('No artist data found for item:', item);
+      setSelectedArtist(null);
+    }
   };
 
   const handleClose = () => {
     setOpen(false);
     setSelectedItem(null);
+    setSelectedArtist(null); // Clear selected artist on close
+  };
+
+  const handleDrawerOpen = () => {
+    setDrawerOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setDrawerOpen(false);
   };
 
   return (
@@ -54,12 +74,12 @@ function ItemList() {
             md={4}
             lg={4}
             key={item.id}
-            className="grid-item" // Apply grid-item class
+            className="grid-item"
           >
             <Card className="card">
               <CardMedia
                 component="img"
-                height="250"
+                height="350"
                 image={item.image}
                 title={item.title}
                 onClick={() => handleClickOpen(item)}
@@ -105,14 +125,41 @@ function ItemList() {
         </DialogTitle>
         <DialogContent className="dialog-content">
           <img src={selectedItem?.image} alt="Selected" />
-          <Typography variant="body1" color="text.secondary" paragraph>
+          <Typography variant="body2" color="text.secondary" paragraph>
             {selectedItem?.description}
           </Typography>
-          <audio controls>
+          <audio className="audio-and-button" controls>
             <source src={selectedItem?.audio_description} type="audio/mpeg" />
           </audio>
+          <Button
+            className="audio-and-button"
+            size="small"
+            variant="outlined"
+            color="neutral"
+            onClick={handleDrawerOpen}
+          >
+            Know the Artist
+          </Button>
         </DialogContent>
       </Dialog>
+
+      <Drawer
+        anchor="right"
+        open={drawerOpen}
+        onClose={handleDrawerClose}
+        PaperProps={{
+          sx: {
+            width: 350, // Adjusted width for better layout
+            padding: '10px', // Added padding
+          },
+        }}
+      >
+        {selectedArtist ? (
+          <Artists artist={selectedArtist} />
+        ) : (
+          <Typography variant="h6">No artist data available</Typography>
+        )}
+      </Drawer>
     </div>
   );
 }

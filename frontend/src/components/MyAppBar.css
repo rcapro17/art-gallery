@@ -1,21 +1,52 @@
-.app-bar {
-  background-color: #383a3d;
-  margin: 0; /* Removes margin on all sides */
-  padding: 0 100px; /* Optional: Adjusts the horizontal padding */
-  position: static;
-  min-height: 120px; /* Adjust height as needed */
+/* Reset the margin and padding for body and html */
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .my-app-bar {
-  margin-bottom: 80px; /* Adjust this value to match the space needed */
-  height: auto;
+  background-color: #eeedeb !important; /* Ensure AppBar is white */
+  height: 100px;
+  width: 100%; /* Ensure it occupies the full width */
+  box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+  position: fixed; /* Fix it to the top of the page */
+  top: 0; /* No space from the top */
+  left: 0; /* No space from the left */
+  right: 0; /* No space from the right */
+  z-index: 1100; /* Ensure it appears above other elements */
+}
+
+.app-bar {
+  background-color: #eeedeb !important; /* Ensure Toolbar is white */
+  padding: 0; /* No padding */
+  width: 100%; /* Ensure it occupies the full width */
+  height: 100px; /* Adjust height as needed */
+  box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
 }
 
 .typography-title {
   flex-grow: 5;
   font-family: 'Papyrus';
+  color: black; /* Change font color to black */
+  font-weight: 700; /* Increase font weight */
 }
 
 .user-name {
   margin-left: 16px;
+  color: black; /* Change font color to black */
+  font-weight: 700; /* Increase font weight */
+}
+
+/* Ensure all buttons have black text */
+.MuiButton-root {
+  color: black !important;
+}
+
+/* Ensure IconButton color is black */
+.MuiIconButton-root {
+  color: black !important;
 }

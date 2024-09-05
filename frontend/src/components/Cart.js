@@ -15,7 +15,7 @@ function Cart({ onPurchase, userName }) {
 
   return (
     <div className="drawer-wrapper">
-      <h2>{userName}'s Cart</h2>
+      <h2 className="cart-title-top">{userName}'s Cart</h2>
       {cartItems.length === 0 ? (
         <p>Your cart is empty</p>
       ) : (

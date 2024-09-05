@@ -3,6 +3,7 @@ import { DesktopDatePicker, TimePicker } from '@mui/x-date-pickers';
 import { TextField, Button, Box, Typography, Paper } from '@mui/material';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers';
+
 import './BookingForm.css'; // Import the CSS file
 
 const BookingForm = () => {
@@ -35,7 +36,7 @@ const BookingForm = () => {
       });
 
       if (response.ok) {
-        setSuccessMessage('Booking created successfully!');
+        setSuccessMessage('Visita Agendada com sucesso!!!');
         setName('');
         setEmail('');
         setBookingDate(null);
