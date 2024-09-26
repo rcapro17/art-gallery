@@ -104,7 +104,15 @@ DATABASES = {
     }
 }
 
+# settings.py
 
+# settings.py
+
+# Looking to send emails in production? Check out our Email API/SMTP product!
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+EMAIL_HOST_USER = '646656665a867b'
+EMAIL_HOST_PASSWORD = '761233eb7e5c20'
+EMAIL_PORT = '2525'
 
 
 

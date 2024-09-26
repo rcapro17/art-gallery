@@ -1,15 +1,24 @@
 from rest_framework import viewsets, generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from .models import UserClient, Category, Artist, Item, Purchase, Booking
-from .serializers import UserClientSerializer, CategorySerializer, ArtistSerializer, ItemSerializer, PurchaseSerializer, BookingSerializer
+from .models import UserClient, Category, Artist, Item, Purchase, Booking, User
+from .serializers import UserClientSerializer, CategorySerializer, ArtistSerializer, ItemSerializer, PurchaseSerializer, BookingSerializer, UserSerializer 
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth.models import User
 from rest_framework import serializers
+# views.py
+from django.core.mail import send_mail
+from rest_framework.permissions import AllowAny
+from django.conf import settings
 
+class RegisterView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [AllowAny]  # Public access
 
-
+    def perform_create(self, serializer):
+        serializer.save()  # Save the user
 
 class UserClientViewSet(viewsets.ModelViewSet):
     queryset = UserClient.objects.all()
@@ -46,20 +55,34 @@ class UserSerializer(serializers.ModelSerializer):
         user = User.objects.create_user(**validated_data)
         return user
 
-class RegisterView(APIView):
-    permission_classes = [AllowAny]
-
-    def post(self, request, *args, **kwargs):
-        serializer = UserSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({'status': 'User created'}, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
 class BookingCreateView(generics.CreateAPIView):
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
-    permission_classes = [AllowAny]  # No authentication required
+    permission_classes = [AllowAny]
+
+    def perform_create(self, serializer):
+        booking = serializer.save()  # Save the booking instance
+
+        # Prepare email confirmation
+        subject = 'Confirmação de Agendamento'
+        message = f'''
+        Olá {booking.name},
+
+        Sua visita foi agendada com sucesso para {booking.booking_date} às {booking.booking_time}.
+        Mensagem: {booking.message}
+
+        Agradecemos e esperamos vê-lo em breve!
+        '''
+        recipient_list = [booking.email]  # List of recipients
+
+        # Send confirmation email
+        send_mail(
+            subject,
+            message,
+            settings.DEFAULT_FROM_EMAIL,
+            recipient_list,
+            fail_silently=False,  # Consider changing this to True for production
+        )
 
 class BookingViewSet(viewsets.ModelViewSet):
     queryset = Booking.objects.all()
