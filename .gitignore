@@ -15,11 +15,3 @@ __pycache__/
 
 # Logs
 *.log
-
-node_modules/
-frontend/node_modules/
-*.cache
-
-# .gitignore
-node_modules/
-
