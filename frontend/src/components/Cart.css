@@ -12,7 +12,7 @@
   align-items: center;
   margin-bottom: 20px;
   padding: 10px;
-  background-color: rgb(182, 184, 186); /* White background for each item */
+  background-color: rgb(237, 238, 240); /* White background for each item */
   border-radius: 8px; /* Rounded corners */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }

@@ -30,7 +30,13 @@ function Register() {
   };
 
   return (
-    <Container maxWidth="sm">
+    <Container
+      maxWidth="sm"
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      height="100vh"
+    >
       <Paper elevation={3} sx={{ padding: 3, mt: 5 }}>
         <Typography variant="h4" component="h1" align="center" gutterBottom>
           Register
