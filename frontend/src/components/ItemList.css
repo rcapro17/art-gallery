@@ -2,65 +2,60 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 300px;
-  padding: 30px;
-  margin-top: 300px;
+  padding: 150px;
+  margin-top: 50px;
+  background-color: rgb(191, 188, 188);
 }
 
-body {
-  background-color: rgb(11, 23, 34);
-  position: relative;
-  overflow: hidden;
+.title {
+  font-size: 2rem;
+  margin-bottom: 20px;
 }
 
-body::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(48, 45, 45, 0.5);
-  pointer-events: none;
-  z-index: 1;
-}
-
-body * {
-  position: relative;
-  z-index: 2;
+.scrollable-container {
+  width: 100%;
+  overflow-y: auto;
 }
 
 .grid-container {
-  max-width: 1200px;
-  width: 100%;
   justify-content: center;
 }
 
 .grid-item {
   display: flex;
-  padding: 10px;
   justify-content: center;
+  padding: 10px;
 }
 
-.card {
-  width: 100%;
-  max-width: 330px;
-  margin: 0 auto;
-  max-height: 600px;
+.products-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+}
+
+.products-box img {
+  max-width: 100%;
+  height: auto;
   cursor: pointer;
 }
 
-.card-media {
-  cursor: pointer;
-}
-
-.card-content {
+.products-box__title {
+  font-size: 1.2rem;
+  margin-top: 10px;
   text-align: center;
+  color: #000;
+}
+
+.products-box__cat {
+  font-size: 1rem;
+  color: #888;
 }
 
 .card-actions {
   display: flex;
   justify-content: center;
+  margin-top: 10px;
 }
 
 .modal-image {
@@ -91,23 +86,15 @@ body * {
   margin-top: 20px;
 }
 
-.audio-and-button {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  margin-top: 5px;
-}
-
 .item-list-container {
-  height: 100vh; /* Set the height of the container to the full viewport height */
-  overflow-y: auto; /* Enable vertical scrolling */
-  padding: 20px; /* Optional: Add some padding for better aesthetics */
-  box-sizing: border-box; /* Ensure padding is included in the height calculation */
+  display: flex;
 }
 
 .scrollable-container {
   flex-grow: 1;
-  overflow-y: scroll;
+  overflow-y: auto;
+  margin-left: 320px;
+  padding: 20px;
 }
 
 .grid-container {
@@ -115,50 +102,38 @@ body * {
 }
 
 .grid-item {
-  padding: 10px;
-}
-
-.card {
-  cursor: pointer;
+  margin-bottom: 20px;
 }
 
 .card-media {
   cursor: pointer;
-}
-
-.card-content {
-  text-align: center;
+  object-fit: cover;
 }
 
 .card-actions {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .modal-image {
   width: 100%;
   height: auto;
-  border-radius: 10px;
 }
 
 .modal-title {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .modal-description {
-  font-size: 16px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .modal-audio {
   width: 100%;
-  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 .modal-actions {
   display: flex;
-  justify-content: flex-start;
-  margin-top: 20px;
+  justify-content: space-between;
 }

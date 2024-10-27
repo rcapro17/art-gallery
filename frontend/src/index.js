@@ -1,6 +1,5 @@
-// index.js
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client'; // Correct import for createRoot
 import App from './App';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'; // Import the date adapter
@@ -9,7 +8,10 @@ import { UserProvider } from './context/UserContext';
 import theme from './theme';
 import { ThemeProvider } from '@mui/material/styles';
 
-ReactDOM.render(
+// Ensure the element with id 'root' exists in your index.html
+const root = createRoot(document.getElementById('root')); // Use createRoot from react-dom/client
+
+root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -20,6 +22,5 @@ ReactDOM.render(
         </CartProvider>
       </LocalizationProvider>
     </ThemeProvider>
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );

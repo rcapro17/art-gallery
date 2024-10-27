@@ -3,7 +3,7 @@
   width: 400px;
   padding: 20px;
   overflow-y: auto;
-  background-color: #383a3d;
+  background-color: #b4b6b8;
   height: 100%; /* Full height of the drawer */
 }
 
@@ -11,7 +11,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 20px;
-  padding: 10px;
+  padding: 15px;
   background-color: rgb(237, 238, 240); /* White background for each item */
   border-radius: 8px; /* Rounded corners */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
@@ -32,23 +32,87 @@
 .item-title {
   margin: 0;
   font-size: 1.1rem;
+  font-weight: 600;
 }
 
 .item-price {
-  margin: 5px 0;
+  margin: 8px 0;
   color: #555;
+  font-size: 1rem;
 }
 
 .quantity-controls {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  margin-top: 10px; /* Add margin above the controls */
+}
+
+.quantity-controls button {
+  min-width: 36px; /* Ensure the buttons have enough space */
+  padding: 6px 10px; /* Add padding for better spacing */
+  font-size: 1rem; /* Make text in buttons more readable */
+}
+
+.quantity-controls p {
+  margin: 0 15px;
+  font-size: 1rem;
+  font-weight: 500;
 }
 
 .cart-footer {
-  margin-top: 20px;
+  margin-top: 30px; /* Add more space before footer */
   text-align: center;
+}
+
+.cart-footer .button-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px; /* Add space between the buttons */
+}
+
+.cart-footer .checkout-button {
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.cart-footer h3 {
+  margin-top: 15px;
+  font-size: 1.3rem;
 }
 
 .cart-title-top {
   color: #fff;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.total-amount {
+  margin-top: 20px;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+/* Cart.css */
+.cart-footer {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.total-amount {
+  margin-top: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
 }

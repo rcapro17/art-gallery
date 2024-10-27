@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Grid from '@mui/material/Grid';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import CardActions from '@mui/material/CardActions';
@@ -15,14 +13,14 @@ import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
 import { Spotlight } from './Spotlight';
 import { CartContext } from '../context/CartContext';
+import SortItem from './SortItem';
 import './ItemList.css';
 
 function ItemList() {
+  const [items, setItems] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
   const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
-  const [drawerOpenArtist, setDrawerOpenArtist] = useState(false);
-  const [selectedArtist, setSelectedArtist] = useState(null);
   const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
@@ -30,6 +28,7 @@ function ItemList() {
       .get('http://127.0.0.1:8000/api/items/')
       .then((response) => {
         const fetchedItems = response.data;
+        setItems(fetchedItems);
         setFilteredItems(fetchedItems);
       })
       .catch((error) => console.error('Error fetching items:', error));
@@ -45,33 +44,10 @@ function ItemList() {
     setSelectedItem(null);
   };
 
-  const fetchArtistData = (artistId) => {
-    axios
-      .get(`http://127.0.0.1:8000/api/artists/${artistId}/`)
-      .then((response) => {
-        setSelectedArtist(response.data);
-      })
-      .catch((error) => {
-        console.error('Error fetching artist:', error);
-        setSelectedArtist(null);
-      });
-  };
-
-  const handleDrawerOpenArtist = () => {
-    if (selectedItem && selectedItem.artist && selectedItem.artist.id) {
-      fetchArtistData(selectedItem.artist.id);
-      setDrawerOpenArtist(true);
-    }
-  };
-
-  const handleDrawerCloseArtist = () => {
-    setDrawerOpenArtist(false);
-    setSelectedArtist(null);
-  };
-
   return (
     <div className="item-list-container">
       <Spotlight />
+      <SortItem items={items} setFilteredItems={setFilteredItems} />
       <div className="scrollable-container">
         <Grid container spacing={1} className="grid-container">
           {filteredItems.map((item) => (
@@ -84,25 +60,22 @@ function ItemList() {
               key={item.id}
               className="grid-item"
             >
-              <Card className="card">
-                <CardMedia
-                  component="img"
-                  height="350"
-                  image={item.image}
-                  title={item.title}
-                  onClick={() => handleClickOpen(item)}
-                  className="card-media"
-                />
-                <CardContent className="card-content">
-                  <Typography
-                    gutterBottom
-                    variant="h6"
-                    component="div"
-                    className="card-title"
-                  >
-                    {item.title}
-                  </Typography>
-                </CardContent>
+              <a href="#" className="products-box mb-30">
+                <figure>
+                  <CardMedia
+                    component="img"
+                    height="207"
+                    image={item.image}
+                    title={item.title}
+                    onClick={() => handleClickOpen(item)}
+                    className="card-media"
+                  />
+                </figure>
+                <h3 className="products-box__title">
+                  {item.title} <span className="icon-arrow-long-right"></span>
+                </h3>
+                <div className="products-box__cat">{item.artist.name}</div>
+
                 <CardActions className="card-actions">
                   <Button
                     size="small"
@@ -112,7 +85,7 @@ function ItemList() {
                     Add to Cart
                   </Button>
                 </CardActions>
-              </Card>
+              </a>
             </Grid>
           ))}
         </Grid>
@@ -167,36 +140,19 @@ function ItemList() {
                 <Button
                   size="small"
                   variant="outlined"
-                  onClick={handleDrawerOpenArtist}
+                  // onClick={handleDrawerOpenArtist}
                 >
-                  Know the Artist
+                  Know the artist
                 </Button>
               </DialogActions>
             </Grid>
           </Grid>
         </DialogContent>
-      </Dialog>
-      <Dialog
-        anchor="right"
-        open={drawerOpenArtist}
-        onClose={handleDrawerCloseArtist}
-        PaperProps={{ style: { padding: '20px', height: '50%' } }}
-      >
-        {selectedArtist ? (
-          <div>
-            <Typography variant="h4">{selectedArtist.name}</Typography>
-            <img
-              src={selectedArtist.foto}
-              alt={selectedArtist.name}
-              style={{ width: '40%', height: 'auto', marginTop: '20px' }}
-            />
-            <Typography variant="body1" style={{ marginTop: '20px' }}>
-              {selectedArtist.biography}
-            </Typography>
-          </div>
-        ) : (
-          <Typography variant="h6">No artist data available</Typography>
-        )}
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Close
+          </Button>
+        </DialogActions>
       </Dialog>
     </div>
   );

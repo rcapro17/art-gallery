@@ -106,8 +106,6 @@ DATABASES = {
 
 # settings.py
 
-# settings.py
-
 # Looking to send emails in production? Check out our Email API/SMTP product!
 EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
 EMAIL_HOST_USER = '646656665a867b'
@@ -161,6 +159,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 
 

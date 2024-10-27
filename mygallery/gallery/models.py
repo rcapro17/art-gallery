@@ -39,6 +39,8 @@ class Artist(models.Model):
     def __str__(self):
         return self.name
 
+# models.py
+
 class Item(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
@@ -47,10 +49,18 @@ class Item(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     category = models.ForeignKey(Category, related_name='items', on_delete=models.CASCADE)
     artist = models.ForeignKey(Artist, related_name='items', on_delete=models.SET_NULL, null=True)
+    quantity = models.PositiveIntegerField(default=0)  # Novo campo para controlar estoque
     is_sold = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        # Marcar item como vendido automaticamente se o estoque for zero
+        if self.quantity == 0:
+            self.is_sold = True
+        super().save(*args, **kwargs)
+
 
 
 class Purchase(models.Model):

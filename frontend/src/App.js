@@ -7,7 +7,7 @@ import MyAppBar from './components/MyAppBar';
 import ItemList from './components/ItemList';
 import Register from './components/Register';
 import Login from './components/Login';
-import Artists from './components/Artists';
+// import Artists from './components/Artists';
 import BookingForm from './components/BookingForm'; // Import BookingForm
 import { CartProvider } from './context/CartContext';
 import theme from './theme';
@@ -27,7 +27,7 @@ function App() {
                   <Route path="/itemlist" element={<ItemList />} />
                   <Route path="/register" element={<Register />} />
                   <Route path="/login" element={<Login />} />
-                  <Route path="/artists" element={<Artists />} />
+                  {/* <Route path="/artists" element={<Artists />} /> */}
                   <Route path="/booking" element={<BookingForm />} />{' '}
                   {/* BookingForm route */}
                 </Routes>

@@ -1,21 +1,35 @@
+// Cart.js
 import React, { useContext } from 'react';
-import Button from '@mui/material/Button';
 import { CartContext } from '../context/CartContext';
+import Button from '@mui/material/Button';
+import './Cart.css';
 import { useNavigate } from 'react-router-dom';
-import './Cart.css'; // Import the CSS file
 
-function Cart({ onPurchase, userName }) {
-  const { cartItems, addToCart, removeFromCart, totalAmount } =
+function Cart({ toggleDrawer }) {
+  const { cartItems, addToCart, removeFromCart, clearCart } =
     useContext(CartContext);
   const navigate = useNavigate();
 
-  const handleAddMoreItems = () => {
-    navigate('/itemList');
+  const totalAmount = cartItems.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0
+  );
+
+  const handleContinueShopping = () => {
+    toggleDrawer(false); // Close the cart drawer
+    setTimeout(() => {
+      navigate('/itemList'); // Redirect to ItemList after the drawer closes
+    }, 300); // Add a small delay to ensure the drawer closes first
+  };
+
+  const handleGoToCheckout = () => {
+    // You can add navigation to the checkout page here
+    alert('Going to Checkout...');
   };
 
   return (
     <div className="drawer-wrapper">
-      <h2 className="cart-title-top">{userName}'s Cart</h2>
+      <h2 className="cart-title-top">Your Cart</h2>
       {cartItems.length === 0 ? (
         <p>Your cart is empty</p>
       ) : (
@@ -50,19 +64,30 @@ function Cart({ onPurchase, userName }) {
           </div>
         ))
       )}
+
       <div className="cart-footer">
-        <h3>Total: ${totalAmount ? totalAmount.toFixed(2) : '0.00'}</h3>
+        <div className="footer-buttons">
+          <Button
+            variant="outlined"
+            onClick={handleContinueShopping}
+            sx={{ marginRight: '10px' }}
+          >
+            Continue Shopping
+          </Button>
+          <Button color="warning" variant="outlined" onClick={clearCart}>
+            Clear Cart
+          </Button>
+        </div>
         <Button
-          color="success"
+          color="primary"
           variant="contained"
-          onClick={onPurchase}
-          sx={{ marginBottom: '10px' }}
+          fullWidth
+          onClick={handleGoToCheckout}
+          sx={{ marginTop: '10px' }}
         >
-          Go to checkout
+          Go to Checkout
         </Button>
-        <Button variant="contained" onClick={handleAddMoreItems}>
-          Add More Items
-        </Button>
+        <h3 className="total-amount">Total: ${totalAmount.toFixed(2)}</h3>
       </div>
     </div>
   );

@@ -17,6 +17,10 @@ class ArtistSerializer(serializers.ModelSerializer):
         model = Artist
         fields = '__all__'
 
+# serializers.py
+
+
+
 class ItemSerializer(serializers.ModelSerializer):
     artist = ArtistSerializer(read_only=True)
 
@@ -46,3 +50,10 @@ class UserSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])  # Set the password properly
         user.save()
         return user
+
+class UserClientSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)  # Associa o usuário ao perfil
+
+    class Meta:
+        model = UserClient
+        fields = '__all__'

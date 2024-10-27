@@ -1,7 +1,7 @@
 from rest_framework import viewsets, generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import UserClient, Category, Artist, Item, Purchase, Booking, User
-from .serializers import UserClientSerializer, CategorySerializer, ArtistSerializer, ItemSerializer, PurchaseSerializer, BookingSerializer, UserSerializer 
+from .serializers import UserClientSerializer, CategorySerializer, ArtistSerializer, ItemSerializer, PurchaseSerializer, BookingSerializer, UserSerializer, UserClientSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -11,6 +11,11 @@ from rest_framework import serializers
 from django.core.mail import send_mail
 from rest_framework.permissions import AllowAny
 from django.conf import settings
+
+
+class UserClientViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()  # Use the User model to get the correct data
+    serializer_class = UserSerializer
 
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
