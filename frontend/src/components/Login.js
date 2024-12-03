@@ -1,15 +1,17 @@
+// src/components/Login.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import { TextField, Button, Paper, Typography, Box } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function Login() {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
   });
-
   const navigate = useNavigate();
+  const location = useLocation();
+  const redirectTo = location.state?.from || '/itemlist'; // Default redirect to item list
 
   const handleChange = (e) => {
     setFormData({
@@ -24,9 +26,9 @@ function Login() {
       .post('http://127.0.0.1:8000/api/token/', formData)
       .then((response) => {
         localStorage.setItem('token', response.data.access);
-        localStorage.setItem('username', formData.username); // Save username
+        localStorage.setItem('username', formData.username);
         alert('User logged in successfully');
-        navigate('/itemList'); // Redirect to ItemList page
+        navigate(redirectTo); // Redirect after login
       })
       .catch((error) => console.error('Error logging in user:', error));
   };
@@ -38,12 +40,8 @@ function Login() {
       alignItems="center"
       height="100vh"
       bgcolor="#f5f5f5"
-      margin-top="100px"
     >
-      <Paper
-        elevation={3}
-        sx={{ padding: '30px', width: '100%', maxWidth: '400px' }}
-      >
+      <Paper sx={{ padding: '30px', width: '100%', maxWidth: '400px' }}>
         <Typography variant="h4" component="h1" gutterBottom align="center">
           Welcome!
         </Typography>

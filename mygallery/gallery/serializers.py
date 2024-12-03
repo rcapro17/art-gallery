@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User  # Import the User model
 from rest_framework import serializers
-from .models import UserClient, Booking, Category, Artist, Item, Purchase
+from .models import UserClient, Booking, Category, Artist, Item, Purchase, PurchaseItem
 
 class UserClientSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,21 +17,42 @@ class ArtistSerializer(serializers.ModelSerializer):
         model = Artist
         fields = '__all__'
 
-# serializers.py
-
 
 
 class ItemSerializer(serializers.ModelSerializer):
-    artist = ArtistSerializer(read_only=True)
-
     class Meta:
         model = Item
-        fields = '__all__'
+        fields = ['id', 'title', 'description', 'image', 'audio_description', 'price', 'category', 'artist', 'quantity', 'is_sold']
+
+
+# class ItemSerializer(serializers.ModelSerializer):
+#     artist = ArtistSerializer(read_only=True)
+
+#     class Meta:
+#         model = Item
+#         fields = '__all__'
+
+class PurchaseItemSerializer(serializers.ModelSerializer):
+    item = serializers.PrimaryKeyRelatedField(queryset=Item.objects.all(), write_only=True)
+
+    class Meta:
+        model = PurchaseItem
+        fields = ['item', 'quantity']
 
 class PurchaseSerializer(serializers.ModelSerializer):
+    items = PurchaseItemSerializer(many=True)
+
     class Meta:
         model = Purchase
-        fields = '__all__'
+        fields = ['name', 'email', 'phone', 'address', 'created_at', 'items']
+
+    def create(self, validated_data):
+        items_data = validated_data.pop('items')
+        purchase = Purchase.objects.create(**validated_data)
+        for item_data in items_data:
+            PurchaseItem.objects.create(purchase=purchase, **item_data)
+        return purchase
+ 
 
 class BookingSerializer(serializers.ModelSerializer):
     class Meta:
